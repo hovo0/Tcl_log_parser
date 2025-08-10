@@ -1,0 +1,5 @@
+error: Connection timeout after 30 seconds
+info: Retrying connection
+warning: Network latency is high
+info: Connection established
+error: Unexpected response from server

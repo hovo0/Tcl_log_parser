@@ -1,0 +1,6 @@
+info: Starting system initialization
+warning: Disk space is low
+error: Failed to load configuration file
+info: Initialization complete
+warning: Deprecated API usage detected
+error: Unable to connect to database

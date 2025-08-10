@@ -1,0 +1,29 @@
+{
+  "test1.log": {
+    "Error": {
+      "3": "Failed to load configuration file",
+      "6": "Unable to connect to database"
+    },
+    "Warning": {
+      "2": "Disk space is low",
+      "5": "Deprecated API usage detected"
+    },
+    "Info": {
+      "1": "Starting system initialization",
+      "4": "Initialization complete"
+    }
+  },
+  "test2.log": {
+    "Error": {
+      "1": "Connection timeout after 30 seconds",
+      "5": "Unexpected response from server"
+    },
+    "Warning": {
+      "3": "Network latency is high"
+    },
+    "Info": {
+      "2": "Retrying connection",
+      "4": "Connection established"
+    }
+  }
+}
