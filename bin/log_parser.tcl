@@ -48,10 +48,8 @@ foreach fname [dict keys $result] {
         foreach lineNum [lsort -integer [dict keys [dict get $result $fname $category]]] {
             set content [dict get $result $fname $category $lineNum]
 
-            # Case-insensitive prefix removal (error/warning/info)
             regsub -nocase {^\s*(error|warning|info):\s*} $content {} content
 
-            # Escape double quotes & backslashes
             set content [string map { "\\" "\\\\" "\"" "\\\"" } $content]
 
             append json "      \"$lineNum\": \"$content\",\n"
