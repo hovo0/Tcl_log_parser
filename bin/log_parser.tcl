@@ -1,6 +1,6 @@
 
 if { $argc != 2 || [ lindex $argv 0 ] ne "-path"} {
-    puts "Usage: $argv0 -path <logs_root_path>"
+    puts stderr "Usage: $argv0 -path <logs_root_path>"
     exit 1
 }
 set root_path [lindex $argv 1]
@@ -44,14 +44,16 @@ foreach fname [dict keys $result] {
     append json "  \"$fname\": {\n"
     foreach category {Error Warning Info} {
         append json "    \"$category\": {\n"
-        foreach lineNum [dict keys [dict get $result $fname $category]] {
+
+        foreach lineNum [lsort -integer [dict keys [dict get $result $fname $category]]] {
             set content [dict get $result $fname $category $lineNum]
-            set prefix [string tolower $category]
-            set prefix "$prefix: "
-            if {[string first $prefix $content] == 0} {
-                set content [string range $content [string length $prefix] end]
-            }
-            set content [string map {"\"" "\\\""} $content] ;# escape quotes
+
+            # Case-insensitive prefix removal (error/warning/info)
+            regsub -nocase {^\s*(error|warning|info):\s*} $content {} content
+
+            # Escape double quotes & backslashes
+            set content [string map { "\\" "\\\\" "\"" "\\\"" } $content]
+
             append json "      \"$lineNum\": \"$content\",\n"
         }
 
@@ -66,6 +68,7 @@ foreach fname [dict keys $result] {
 }
 set json [string trimright $json ",\n"]
 append json "\n}\n"
+
 
 set scriptDir [file dirname [file normalize [info script]]]
 set outDir [file join $scriptDir ".." "test" "golden"]
