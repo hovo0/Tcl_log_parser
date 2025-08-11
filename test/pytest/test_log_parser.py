@@ -3,6 +3,8 @@ import subprocess
 import os
 
 def test_log_parser_output():
+    """Check that the TCL log parser output matches the expected golden JSON."""
+
     repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
     tcl_script = os.path.join(repo_root, 'bin', 'log_parser.tcl')
     logs_path = os.path.join(repo_root, 'example', 'logs')

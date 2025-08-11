@@ -23,8 +23,8 @@ set log_files [find_log_files $root_path]
 foreach file $log_files {
     set fileData {Error {} Warning {} Info {}}
     set lineNum 0
-    set fh [open $file r]
-    while {[gets $fh line] >= 0} {
+    set fileHandle [open $file r]
+    while {[gets $fileHandle line] >= 0} {
         incr lineNum
         set lowerLine [string tolower $line]
         if {[string match "error:*" $lowerLine]} {
@@ -35,7 +35,7 @@ foreach file $log_files {
             dict set fileData Info $lineNum $line
         }
     }
-    close $fh
+    close $fileHandle
     dict set result [file tail $file] $fileData
 }
 
@@ -73,8 +73,8 @@ set outDir [file join $scriptDir ".." "test" "golden"]
 file mkdir $outDir
 set outFile [file join $outDir "parsed_output.json"]
 
-set fh [open $outFile w]
-puts $fh $json
-close $fh
+set fileHandle [open $outFile w]
+puts $fileHandle $json
+close $fileHandle
 
 puts "JSON saved to $outFile"
